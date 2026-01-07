@@ -288,11 +288,11 @@
   </div>
 
   <!-- SHOP SCREEN -->
-  <div class="menu screen" id="shop">
-    <h2>Shop</h2>
-    <p>View item available to buy</p>
-    <button class="back-btn" onclick="goBack()">Back</button>
-  </div>
+<div class="menu screen" id="shop">
+  <h2>Shop</h2>
+  <div id="shop-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</div>
 
   <!-- HAIRCUT AI SCREEN -->
   <div class="menu screen" id="haircutai">
@@ -621,10 +621,62 @@ function openScreen(id) {
   if (id === "shifts") generateRandomShifts();
   if (id === "portfolio") populatePortfolio(); // <-- new
 }
+  const shopItems = [
+  { name: "Hair Clippers", price: "$45", img: "https://via.placeholder.com/80?text=Clippers" },
+  { name: "Scissors", price: "$25", img: "https://via.placeholder.com/80?text=Scissors" },
+  { name: "Hair Gel", price: "$10", img: "https://via.placeholder.com/80?text=Gel" },
+  { name: "Barber Cape", price: "$15", img: "https://via.placeholder.com/80?text=Cape" },
+  { name: "Comb Set", price: "$12", img: "https://via.placeholder.com/80?text=Comb" },
+  { name: "Hair Spray", price: "$8", img: "https://via.placeholder.com/80?text=Spray" }
+];
+
+// Populate Shop screen
+function populateShop() {
+  const container = document.getElementById("shop-container");
+  container.innerHTML = "";
+
+  shopItems.forEach(item => {
+    const card = document.createElement("div");
+    card.style.display = "flex";
+    card.style.alignItems = "center";
+    card.style.background = "#fff";
+    card.style.padding = "10px";
+    card.style.borderRadius = "12px";
+    card.style.marginBottom = "10px";
+    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+    card.style.gap = "12px";
+
+    card.innerHTML = `
+      <img src="${item.img}" style="width:60px; height:60px; border-radius:8px;" 
+           onerror="this.src='https://via.placeholder.com/60?text=No+Image'">
+      <div>
+        <strong>${item.name}</strong><br>
+        Price: ${item.price}
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// Call this whenever Shop screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts();
+  if (id === "portfolio") populatePortfolio();
+  if (id === "shop") populateShop(); // <-- new
+}
 </script>
 
 </body>
 </html>
+
 
 
 
