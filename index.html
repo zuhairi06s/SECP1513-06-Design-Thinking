@@ -238,10 +238,17 @@
 
   
   <!-- BOOKING SCREEN -->
+<!-- BOOKING SCREEN -->
 <div class="menu screen" id="booking">
   <h2>📅 Book Appointment</h2>
-  <p>Select a date</p>
 
+  <!-- Barbershop selector -->
+  <label for="barbershop-select" style="display:block; margin-bottom:10px; font-weight:bold;">Select Barbershop:</label>
+  <select id="barbershop-select" class="calendar" style="width:100%; padding:10px; border-radius:12px; font-size:16px; margin-bottom:20px;">
+    <!-- Options will be populated dynamically -->
+  </select>
+
+  <p>Select a date</p>
   <!-- Calendar -->
   <input type="date" id="booking-date" class="calendar" onchange="showTimePopup()" />
 
@@ -299,18 +306,25 @@
   </div>
 
   <!-- GPS SCREEN -->
+  <!-- GPS SCREEN -->
   <div class="menu screen" id="gps">
   <h2>GPS</h2>
-  <h2>📍 Nearby Barbers</h2>
   <p>Find barbers near your location</p>
   <button class="btn-main" onclick="getLocation()">Get My Location</button>
+
   <div id="gps-result" style="margin-top:15px;"></div>
+
   <!-- MAP IMAGE -->
-  <img id="map-image" style="display:none; width:100%; border-radius:12px; margin-top:12px;" />
+  <img id="map-image" 
+       style="display:none; width:100%; border-radius:12px; margin-top:12px;" 
+       alt="Map showing your location"
+       onerror="this.style.display='none'; console.log('Map image failed to load');" />
+
   <!-- MOCK BARBERS -->
   <div id="barber-list" style="margin-top:15px;"></div>
+
   <button class="back-btn" onclick="goBack()">Back</button>
-  </div>
+</div>
 
   <!-- SUBSCRIPTION SCREEN -->
   <div class="menu screen" id="subscription">
@@ -352,70 +366,103 @@
 
 
 
-  function getLocation() {
-    const result = document.getElementById("gps-result");
-    const mapImg = document.getElementById("map-image");
-    const barberList = document.getElementById("barber-list");
+ function getLocation() {
+  const result = document.getElementById("gps-result");
+  const mapImg = document.getElementById("map-image");
+  const barberList = document.getElementById("barber-list");
 
-    if (!navigator.geolocation) {
-      result.innerHTML = "Geolocation is not supported by this browser.";
-      return;
-    }
-
-    result.innerHTML = "Getting your location...";
-    barberList.innerHTML = "";
-    mapImg.style.display = "none";
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude.toFixed(5);
-        const lon = position.coords.longitude.toFixed(5);
-
-        // Show GPS result
-        result.innerHTML = `
-          <strong>Your Location</strong><br>
-          Latitude: ${lat}<br>
-          Longitude: ${lon}
-        `;
-
-        // Static map image (OpenStreetMap)
-        mapImg.src = `https://staticmap.openstreetmap.de/staticmap.php?center=${lat},${lon}&zoom=15&size=600x300&markers=${lat},${lon},red-pushpin`;
-        mapImg.style.display = "block";
-
-        // Mock nearby barbers
-        barberList.innerHTML = `
-          <h3 style="margin-bottom:8px;">Nearby Barbers</h3>
-
-          <div class="barber-card">
-            <img src="https://via.placeholder.com/50" />
-            <div>
-              <strong>Fade Studio</strong><br>
-              0.5 km away
-            </div>
-          </div>
-
-          <div class="barber-card">
-            <img src="https://via.placeholder.com/50" />
-            <div>
-              <strong>UTM Barber Shop</strong><br>
-              0.8 km away
-            </div>
-          </div>
-
-          <div class="barber-card">
-            <img src="https://via.placeholder.com/50" />
-            <div>
-              <strong>Classic Cut</strong><br>
-              1.2 km away
-            </div>
-          </div>
-        `;
-      },
-      () => {
-        result.innerHTML = "Unable to retrieve location.";
-      }
-    );
+  if (!navigator.geolocation) {
+    result.innerHTML = "Geolocation is not supported by this browser.";
+    return;
   }
+
+  result.innerHTML = "Getting your location...";
+  barberList.innerHTML = "";
+  mapImg.style.display = "none";
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude.toFixed(5);
+      const lon = position.coords.longitude.toFixed(5);
+
+      // Show GPS coordinates
+      result.innerHTML = `
+        <strong>Your Location</strong><br>
+        Latitude: ${lat}<br>
+        Longitude: ${lon}
+      `;
+
+      // Static map (OpenStreetMap)
+      mapImg.src = `https://staticmap.openstreetmap.de/staticmap.php?center=${lat},${lon}&zoom=15&size=300x150&markers=${lat},${lon},red-pushpin`;
+      mapImg.style.display = "block";
+
+      // Nearby barbers (mock data)
+      barberList.innerHTML = `
+        <h3 style="margin-bottom:8px;">Nearby Barbers</h3>
+
+        <div class="barber-card">
+          <img src="https://via.placeholder.com/50" onerror="this.src='https://via.placeholder.com/50?text=No+Image'" />
+          <div>
+            <strong>Fade Studio</strong><br>
+            0.5 km away
+          </div>
+        </div>
+
+        <div class="barber-card">
+          <img src="https://via.placeholder.com/50" onerror="this.src='https://via.placeholder.com/50?text=No+Image'" />
+          <div>
+            <strong>UTM Barber Shop</strong><br>
+            0.8 km away
+          </div>
+        </div>
+
+        <div class="barber-card">
+          <img src="https://via.placeholder.com/50" onerror="this.src='https://via.placeholder.com/50?text=No+Image'" />
+          <div>
+            <strong>Classic Cut</strong><br>
+            1.2 km away
+          </div>
+        </div>
+      `;
+    },
+    (error) => {
+      result.innerHTML = "Unable to retrieve location.";
+    }
+  );
+}
+
+  // List of barbershops (same as GPS screen)
+const barbershops = [
+  { name: "Fade Studio", distance: "0.5 km" },
+  { name: "UTM Barber Shop", distance: "0.8 km" },
+  { name: "Classic Cut", distance: "1.2 km" }
+];
+
+// Populate barbershop dropdown in Booking screen
+function populateBarbershops() {
+  const select = document.getElementById("barbershop-select");
+  select.innerHTML = ""; // clear any existing options
+
+  barbershops.forEach(shop => {
+    const option = document.createElement("option");
+    option.value = shop.name;
+    option.textContent = `${shop.name} (${shop.distance})`;
+    select.appendChild(option);
+  });
+}
+
+// Call it when the Booking screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") {
+    populateBarbershops();
+  }
+}
 
   
 
@@ -436,20 +483,22 @@
   }
 
   function confirmBooking() {
-    const date = document.getElementById("booking-date").value;
+  const date = document.getElementById("booking-date").value;
+  const barber = document.getElementById("barbershop-select").value;
 
-    if (!date || !selectedTime) {
-      alert("Please select a date and time.");
-      return;
-    }
-
-    alert(`Booking confirmed!\nDate: ${date}\nTime: ${selectedTime}`);
-    goBack();
+  if (!date || !selectedTime) {
+    alert("Please select a date and time.");
+    return;
   }
+
+  alert(`Booking confirmed!\nBarbershop: ${barber}\nDate: ${date}\nTime: ${selectedTime}`);
+  goBack();
+}
 </script>
 
 </body>
 </html>
+
 
 
 
