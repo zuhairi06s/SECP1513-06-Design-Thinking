@@ -273,6 +273,10 @@
   <div class="menu screen" id="shifts">
     <h2>Shifts</h2>
     <p>View barber availability</p>
+
+  <!-- Container for shifts -->
+  <div id="shifts-container" style="margin-top:15px;"></div>
+
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
@@ -493,10 +497,58 @@ function openScreen(id) {
   alert(`Booking confirmed!\nBarbershop: ${barber}\nDate: ${date}\nTime: ${selectedTime}`);
   goBack();
 }
+  function generateRandomShifts() {
+  const shiftsContainer = document.getElementById("shifts-container");
+  shiftsContainer.innerHTML = ""; // clear previous content
+
+  barbershops.forEach(shop => {
+    // Example barber name
+    const barberName = "John Doe";
+
+    // Generate random shifts (2–3 per day)
+    const shifts = [];
+    const startHours = [9, 10, 11, 12, 13, 14, 15, 16];
+    const numShifts = Math.floor(Math.random() * 3) + 2; // 2–4 shifts
+
+    for (let i = 0; i < numShifts; i++) {
+      const start = startHours[Math.floor(Math.random() * startHours.length)];
+      const end = start + Math.floor(Math.random() * 3) + 1; // 1–3 hours shift
+      shifts.push(`${start}:00 - ${end}:00`);
+    }
+
+    // Display shifts for this barber and barbershop
+    const shopDiv = document.createElement("div");
+    shopDiv.style.background = "#fff";
+    shopDiv.style.padding = "10px";
+    shopDiv.style.borderRadius = "12px";
+    shopDiv.style.marginBottom = "10px";
+    shopDiv.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+
+    shopDiv.innerHTML = `
+      <strong>${shop.name}</strong> - ${barberName}<br>
+      Shifts: ${shifts.join(", ")}
+    `;
+
+    shiftsContainer.appendChild(shopDiv);
+  });
+}
+
+// Call this function whenever the Shifts screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts(); // <-- new
+}
 </script>
 
 </body>
 </html>
+
 
 
 
