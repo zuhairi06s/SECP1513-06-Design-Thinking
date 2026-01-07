@@ -16,6 +16,10 @@
       height: 100vh;
     }
 
+    .phone::-webkit-scrollbar,
+    .menu::-webkit-scrollbar {
+      display: none;
+}
     .phone {
       width: 360px;
       height: 720px;
@@ -25,8 +29,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       position: relative;
       overflow: hidden;
-      *::-webkit-scrollbar {
-      display: none;
+     
 }
 
 
@@ -58,9 +61,8 @@
       overflow-y: auto;
      -ms-overflow-style: none;
       scrollbar-width: none;
-      *::-webkit-scrollbar {
-      display: none;
-}
+      
+
 }
     
 
@@ -150,10 +152,10 @@
     }
 
     .back-btn {
-        position: sticky;
+        position: absolute;
         bottom: 16px;     /* distance from menu bottom */
         left: 16px;
-        z-index: 10;
+        z-index: 20;
       
         padding: 12px 24px;
         font-size: 15px;
@@ -354,7 +356,7 @@
 
  
   <!-- GPS SCREEN -->
-  <<div class="menu screen" id="gps">
+  <div class="menu screen" id="gps">
  
   <h2 style="margin-top:0; text-align:center;">📍 GPS</h2>
   <p>Find barbers near your location</p>
@@ -503,11 +505,19 @@ function openScreen(id) {
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
   });
+
   const screen = document.getElementById(id);
   screen.classList.add('active');
 
-  if (id === "booking") {
-    populateBarbershops();
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts();
+  if (id === "portfolio") populatePortfolio();
+  if (id === "shop") populateShop();
+  if (id === "rewards") populateRewards();
+  if (id === "subscription") populateSubscriptions();
+  if (id === "haircutai") {
+    populateHaircutBarbershops();
+    populateHairstyles();
   }
 }
 
@@ -928,6 +938,7 @@ function openScreen(id) {
 
 </body>
 </html>
+
 
 
 
