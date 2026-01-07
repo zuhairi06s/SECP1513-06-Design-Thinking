@@ -421,10 +421,40 @@
     );
   }
 </script>
+  
+<script>
+  let selectedTime = "";
 
+  function showTimePopup() {
+    document.getElementById("time-popup").style.display = "block";
+  }
+
+  function selectTime(time) {
+    selectedTime = time;
+
+    document.querySelectorAll(".time-slots button").forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    event.target.classList.add("active");
+  }
+
+  function confirmBooking() {
+    const date = document.getElementById("booking-date").value;
+
+    if (!date || !selectedTime) {
+      alert("Please select a date and time.");
+      return;
+    }
+
+    alert(`Booking confirmed!\nDate: ${date}\nTime: ${selectedTime}`);
+    goBack();
+  }
+</script>
 
 </body>
 </html>
+
 
 
 
