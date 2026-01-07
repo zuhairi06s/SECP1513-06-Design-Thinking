@@ -235,8 +235,6 @@
     </div>
   </div>
 
-  
-  <!-- BOOKING SCREEN -->
 <!-- BOOKING SCREEN -->
 <div class="menu screen" id="booking">
   <h2>📅 Book Appointment</h2>
@@ -330,11 +328,11 @@
 </div>
 
   <!-- SUBSCRIPTION SCREEN -->
-  <div class="menu screen" id="subscription">
-    <h2>Subscription</h2>
-    <p>View subscription features and prices</p>
-    <button class="back-btn" onclick="goBack()">Back</button>
-  </div>
+<div class="menu screen" id="subscription">
+  <h2>Subscription Plans</h2>
+  <div id="subscription-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</div>
 
   <!-- GALLERY SCREEN -->
   <div class="menu screen" id="gallery">
@@ -738,10 +736,65 @@ function openScreen(id) {
   if (id === "shop") populateShop();
   if (id === "rewards") populateRewards(); // <-- new
 }
+  // Example subscription plans
+const subscriptions = [
+  { name: "Silver Membership", price: 30, benefits: ["5% Discount on services", "Priority booking"] },
+  { name: "Gold Membership", price: 60, benefits: ["10% Discount on services", "Priority booking", "1 Free Haircut Voucher"] },
+  { name: "Platinum Membership", price: 100, benefits: ["15% Discount on services", "Priority booking", "2 Free Haircut Vouchers", "Exclusive Offers"] }
+];
+
+// Populate Subscription screen
+function populateSubscriptions() {
+  const container = document.getElementById("subscription-container");
+  container.innerHTML = "";
+
+  subscriptions.forEach(sub => {
+    const card = document.createElement("div");
+    card.style.background = "#fff";
+    card.style.padding = "12px";
+    card.style.borderRadius = "12px";
+    card.style.marginBottom = "12px";
+    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+
+    card.innerHTML = `
+      <strong>${sub.name}</strong><br>
+      Price: RM ${sub.price}<br>
+      Benefits:
+      <ul style="margin:5px 0 10px 15px; padding:0;">
+        ${sub.benefits.map(b => `<li>${b}</li>`).join("")}
+      </ul>
+      <button class="btn-main" style="width:100%;" onclick="subscribePlan('${sub.name}', ${sub.price})">Subscribe</button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// Mock subscription action
+function subscribePlan(name, price) {
+  alert(`You have subscribed to ${name} for RM ${price}!\n(Prototype only)`);
+}
+
+// Call this whenever Subscription screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts();
+  if (id === "portfolio") populatePortfolio();
+  if (id === "shop") populateShop();
+  if (id === "rewards") populateRewards();
+  if (id === "subscription") populateSubscriptions(); // <-- new
+}
 </script>
 
 </body>
 </html>
+
 
 
 
