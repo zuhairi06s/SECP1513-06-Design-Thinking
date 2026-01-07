@@ -14,13 +14,8 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden;
     }
 
-    .phone::-webkit-scrollbar,
-    .menu::-webkit-scrollbar {
-      display: none;
-}
     .phone {
       width: 360px;
       height: 720px;
@@ -30,52 +25,46 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       position: relative;
       overflow: hidden;
-     
-}
+    }
 
+    /* Hide scrollbars */
+    .phone::-webkit-scrollbar,
+    .menu::-webkit-scrollbar {
+      display: none;
+    }
 
-
-   .header {
+    .header {
       position: absolute;
       top: 16px;
       left: 20px;
       right: 20px;
       display: flex;
       justify-content: space-between;
-      align-items: left;
       font-weight: bold;
       font-size: 20px;
       z-index: 10;
-}
-    
-   
-  .menu {
+    }
+
+    .menu {
       position: relative;
-      top: 80px;
-      bottom: 90px;
       left: 20px;
       right: 20px;
+      top: 60px;
+      bottom: 20px;
       background: #e4a6ee;
       border-radius: 20px;
       padding: 20px;
-      padding-bottom: 80px;
-      overflow-y: scroll;
-     -ms-overflow-style: none;
+      padding-bottom: 100px;
+      overflow-y: auto;
+      -ms-overflow-style: none;
       scrollbar-width: none;
-      
-
-}
-    
+    }
 
     .barbers-title {
-      position: absolute;
-       top: 50px;            
-       left: 20px;           
-
-       font-weight: bold;
-       font-size: 20px;
-    } 
-    
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
 
     .section-title {
       font-weight: bold;
@@ -128,24 +117,23 @@
       justify-content: space-between;
       align-items: center;
       z-index: 10;
-}
-
-    .points {
-        background: white;
-        padding: 8px 14px;
-        border-radius: 999px;   /* perfect pill shape */
-        border: 1.5px solid #ddd;
-        font-size: 12px;
-        white-space: nowrap;
-        box-sizing: border-box;
-    
     }
 
-    /* Screen simulation */
+    .points {
+      background: white;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1.5px solid #ddd;
+      font-size: 12px;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+
     .screen {
       display: none;
       text-align: center;
-      padding-top: 80px;
+      padding-top: 20px;
+      padding-bottom: 40px;
     }
 
     .screen.active {
@@ -153,66 +141,63 @@
     }
 
     .back-btn {
-        position: absolute;
-        bottom: 16px;     /* distance from menu bottom */
-        left: 16px;
-        z-index: 20;
-      
-        padding: 12px 24px;
-        font-size: 15px;
-        font-weight: bold;
-      
-        border: none;
-        border-radius: 30px;
-        background: #ff512f;
-        color: white;
-        cursor: pointer;
-      
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      
-     }
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      z-index: 20;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      background: #ff512f;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
 
-      .barber-card {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background: white;
-        padding: 10px;
-        border-radius: 12px;
-        margin-bottom: 8px;
-        font-size: 14px;
-      }
+    .barber-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
 
-      .barber-card img {
-        width: 50px;
-        height: 50px;
-        border-radius: 10px;
-}
-      .calendar {
-        display: block;
-        margin: 30px auto;
-        padding: 12px;
-        font-size: 16px;
-        border-radius: 12px;
-        border: 1px solid #ccc;
-}
+    .barber-card img {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+    }
 
-      .time-popup {
-       display: none;
-       background: white;
-       padding: 16px;
-       border-radius: 16px;
-       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-       margin-top: 20px;
-       text-align: center;
-}
+    .calendar {
+      display: block;
+      margin: 15px auto;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+    }
+
+    .time-popup {
+      display: none;
+      background: white;
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-top: 20px;
+      text-align: center;
+    }
 
     .time-slots {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       margin: 15px 0;
-}
+    }
 
     .time-slots button {
       padding: 10px;
@@ -220,19 +205,17 @@
       border: none;
       background: #f2f2f2;
       cursor: pointer;
-}
+    }
 
     .time-slots button.active {
       background: #ff512f;
       color: white;
-}
+    }
   </style>
 </head>
-
 <body>
 
 <div class="phone">
-
   <!-- HEADER -->
   <div class="header">
     <span>👤</span>
@@ -240,153 +223,102 @@
     <span>🔔</span>
   </div>
 
-
-  
   <!-- MAIN MENU -->
   <div class="menu screen active" id="home">
-    <div class="section-title barbers-title">💈 Barbers</div>
-
+    <div class="barbers-title">💈 Barbers</div>
     <button class="btn-main" onclick="openScreen('booking')">Booking</button>
     <button class="btn-main" onclick="openScreen('shifts')">Shifts</button>
     <button class="btn-main" onclick="openScreen('portfolio')">Portfolio</button>
-    
-    
 
     <div class="list">
-      <button list ="btn-main" onclick="openScreen('shop')">🛒 Shop</button>
-      <button list ="btn-main" onclick="openScreen('haircutai')">✂️ Haircut AI</button>
-      <button list ="btn-main" onclick="openScreen('rewards')">🏆Rewards</button>
-      <button list ="btn-main" onclick="openScreen('gps')">📍 GPS</button>
-      <button list ="btn-main" onclick="openScreen('subscription')">💳 Subscription</button>
-      <button list ="btn-main" onclick="openScreen('gallery')">🖼️ Gallery</button>
+      <button onclick="openScreen('shop')">🛒 Shop</button>
+      <button onclick="openScreen('haircutai')">✂️ Haircut AI</button>
+      <button onclick="openScreen('rewards')">🏆Rewards</button>
+      <button onclick="openScreen('gps')">📍 GPS</button>
+      <button onclick="openScreen('subscription')">💳 Subscription</button>
+      <button onclick="openScreen('gallery')">🖼️ Gallery</button>
     </div>
   </div>
 
-
-  
-<!-- BOOKING SCREEN -->
-<div class="menu screen" id="booking">
-  
-  <h2 style="margin-top:0; text-align:center;">📅 Book Appointment</h2>
-  <!-- Barbershop selector -->
-  <label for="barbershop-select" style="display:block; margin-bottom:10px; font-weight:bold;">Select Barbershop:</label>
-  <select id="barbershop-select" class="calendar" style="width:100%; padding:10px; border-radius:12px; font-size:16px; margin-bottom:20px;">
-    <!-- Options will be populated dynamically -->
-  </select>
-  <p>Select a date</p>
-  <!-- Calendar -->
-  <input type="date" id="booking-date" class="calendar" onchange="showTimePopup()" />
-  <!-- Time Popup -->
-  <div id="time-popup" class="time-popup">
-    <h3>Select Time</h3>
-  <div class="time-slots">
-      <button onclick="selectTime('10:00 AM')">10:00 AM</button>
-      <button onclick="selectTime('12:00 PM')">12:00 PM</button>
-      <button onclick="selectTime('2:00 PM')">2:00 PM</button>
-      <button onclick="selectTime('4:00 PM')">4:00 PM</button>
+  <!-- BOOKING SCREEN -->
+  <div class="menu screen" id="booking">
+    <h2>📅 Book Appointment</h2>
+    <label for="barbershop-select">Select Barbershop:</label>
+    <select id="barbershop-select" class="calendar"></select>
+    <p>Select a date</p>
+    <input type="date" id="booking-date" class="calendar" onchange="showTimePopup()" />
+    <div id="time-popup" class="time-popup">
+      <h3>Select Time</h3>
+      <div class="time-slots">
+        <button onclick="selectTime('10:00 AM')">10:00 AM</button>
+        <button onclick="selectTime('12:00 PM')">12:00 PM</button>
+        <button onclick="selectTime('2:00 PM')">2:00 PM</button>
+        <button onclick="selectTime('4:00 PM')">4:00 PM</button>
+      </div>
+      <button class="btn-main" onclick="confirmBooking()">Book Now</button>
     </div>
- <button class="btn-main" onclick="confirmBooking()">Book Now</button>
+    <button class="back-btn" onclick="goBack()">Back</button>
   </div>
- <button class="back-btn" onclick="goBack()">Back</button>
-  </div>
-
 
   <!-- SHIFTS SCREEN -->
   <div class="menu screen" id="shifts">
-  
-     <h2 style="margin-top:0; text-align:center;">Shifts</h2>
-    <p>View barber availability</p>
-  <!-- Container for shifts -->
-  <div id="shifts-container" style="margin-top:15px;"></div>
- <button class="back-btn" onclick="goBack()">Back</button>
+    <h2>Shifts</h2>
+    <div id="shifts-container"></div>
+    <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
-  
-  
-<!-- PORTFOLIO SCREEN -->
+  <!-- PORTFOLIO SCREEN -->
   <div class="menu screen" id="portfolio">
-  
-    <h2 style="margin-top:0; text-align:center;">Portfolio</h2>
-    <div id="portfolio-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
+    <h2>Portfolio</h2>
+    <div id="portfolio-container" style="max-height:500px; overflow-y:auto;"></div>
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
- 
   <!-- SHOP SCREEN -->
-<div class="menu screen" id="shop">
-  
-  <h2 style="margin-top:0; text-align:center;">Shop</h2>
-  <div id="shop-container" style="margin-top:15px; max-height:500px;overflow-y:auto; "></div>
-  <button class="back-btn" onclick="goBack()">Back</button>
-</div>
-
- 
-  <!-- HAIRCUT AI SCREEN -->
-<div class="menu screen" id="haircutai">
-  
-  <h2 style="margin-top:0; text-align:center;">Haircut AI</h2>
-  <!-- Barbershop selector -->
-  <label for="haircut-barbershop" style="display:block; margin-bottom:10px; font-weight:bold;">Select Barbershop:</label>
-  <select id="haircut-barbershop" class="calendar" style="width:100%; padding:10px; border-radius:12px; font-size:16px; margin-bottom:20px;">
-    <!-- Options populated dynamically -->
-  </select>
- <!-- Upload or choose face shape -->
-  <label for="face-shape" style="display:block; margin-bottom:5px;">Select Face Shape:</label>
-  <select id="face-shape" class="calendar" style="width:100%; padding:10px; border-radius:12px; font-size:16px; margin-bottom:20px;">
-    <option value="oval">Oval</option>
-    <option value="round">Round</option>
-    <option value="square">Square</option>
-    <option value="heart">Heart</option>
-    <option value="diamond">Diamond</option>
-  </select>
-  <!-- Suggested hairstyles -->
-  <div id="hairstyle-suggestions" style="margin-top:15px;"></div>
-  <button class="btn-main" onclick="applyHaircutAI()">Apply Selected Style</button>
-  <button class="back-btn" onclick="goBack()">Back</button>
-</div>
-
- 
-  <!-- REWARDS SCREEN -->
-  <div class="menu screen" id="rewards">
-  
-    <h2 style="margin-top:0; text-align:center;">Rewards</h2>
-    <p>Exchange your points for rewards</p>
-    <div id="rewards-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
+  <div class="menu screen" id="shop">
+    <h2>Shop</h2>
+    <div id="shop-container" style="max-height:500px; overflow-y:auto;"></div>
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
- 
+  <!-- HAIRCUT AI SCREEN -->
+  <div class="menu screen" id="haircutai">
+    <h2>Haircut AI</h2>
+    <label for="haircut-barbershop">Select Barbershop:</label>
+    <select id="haircut-barbershop" class="calendar"></select>
+    <label for="face-shape">Select Face Shape:</label>
+    <select id="face-shape" class="calendar">
+      <option value="oval">Oval</option>
+      <option value="round">Round</option>
+      <option value="square">Square</option>
+      <option value="heart">Heart</option>
+      <option value="diamond">Diamond</option>
+    </select>
+    <div id="hairstyle-suggestions"></div>
+    <button class="btn-main" onclick="applyHaircutAI()">Apply Selected Style</button>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
+
   <!-- GPS SCREEN -->
   <div class="menu screen" id="gps">
- 
-  <h2 style="margin-top:0; text-align:center;">📍 GPS</h2>
-  <p>Find barbers near your location</p>
-  <button class="btn-main" onclick="getLocation()">Get My Location</button>
-  <div id="gps-result" style="margin-top:15px;"></div>
- <!-- MAP IMAGE -->
-  <img id="map-image" 
-       style="display:none; width:100%; border-radius:12px; margin-top:12px;" 
-       alt="Map showing your location"
-       onerror="this.style.display='none'; console.log('Map image failed to load');" />
-  <!-- MOCK BARBERS -->
-  <div id="barber-list" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
-  <button class="back-btn" onclick="goBack()">Back</button>
-</div>
+    <h2>📍 GPS</h2>
+    <button class="btn-main" onclick="getLocation()">Get My Location</button>
+    <div id="gps-result"></div>
+    <img id="map-image" style="display:none; width:100%; border-radius:12px; margin-top:12px;" />
+    <div id="barber-list" style="max-height:500px; overflow-y:auto; margin-top:15px;"></div>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
 
- 
   <!-- SUBSCRIPTION SCREEN -->
-<div class="menu screen" id="subscription">
- 
-  <h2 style="margin-top:0; text-align:center;"> 💳  Subscription Plans</h2>
-  <div id="subscription-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
-  <button class="back-btn" onclick="goBack()">Back</button>
-</div>
+  <div class="menu screen" id="subscription">
+    <h2>💳 Subscription Plans</h2>
+    <div id="subscription-container" style="max-height:500px; overflow-y:auto;"></div>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
 
   <!-- GALLERY SCREEN -->
   <div class="menu screen" id="gallery">
-  
-    <h2 style="margin-top:0; text-align:center;"> 🖼 Gallery</h2>
-    <p>Photo of different haircut styles</p>
+    <h2>🖼 Gallery</h2>
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
@@ -395,591 +327,181 @@
     <span>🎤 AI Voice Assistant</span>
     <span class="points">You have 325 points</span>
   </div>
-
 </div>
 
 <script>
-  function openScreen(id) {
-    document.querySelectorAll('.screen').forEach(screen => {
-      screen.classList.remove('active');
-    });
-    document.getElementById(id).classList.add('active');
-  }
+  // Common data
+  const barbershops = [
+    { name: "Fade Studio", distance: "0.5 km" },
+    { name: "UTM Barber Shop", distance: "0.8 km" },
+    { name: "Classic Cut", distance: "1.2 km" }
+  ];
 
-  function goBack() {
-    openScreen('home');
-  }
+  const barbers = [
+    { name: "Ali", shop: "Fade Studio", experience: 5, rating: 4.5, images: ["https://via.placeholder.com/100?text=Haircut+1","https://via.placeholder.com/100?text=Haircut+2","https://via.placeholder.com/100?text=Haircut+3"] },
+    { name: "Ariff", shop: "UTM Barber Shop", experience: 3, rating: 4.2, images: ["https://via.placeholder.com/100?text=Haircut+1","https://via.placeholder.com/100?text=Haircut+2"] },
+    { name: "Mohd", shop: "Classic Cut", experience: 7, rating: 4.8, images: ["https://via.placeholder.com/100?text=Haircut+1","https://via.placeholder.com/100?text=Haircut+2","https://via.placeholder.com/100?text=Haircut+3","https://via.placeholder.com/100?text=Haircut+4"] }
+  ];
 
-  function showAlert(feature) {
-    alert(feature + " feature clicked (Prototype)");
-  }
+  const shopItems = [
+    { name: "Hair Clippers", price: "RM 45", img: "https://via.placeholder.com/80?text=Clippers" },
+    { name: "Scissors", price: "RM 25", img: "https://via.placeholder.com/80?text=Scissors" },
+    { name: "Hair Gel", price: "RM 10", img: "https://via.placeholder.com/80?text=Gel" }
+  ];
 
-
-
- function getLocation() {
-  const result = document.getElementById("gps-result");
-  const mapImg = document.getElementById("map-image");
-  const barberList = document.getElementById("barber-list");
-
-  if (!navigator.geolocation) {
-    result.innerHTML = "Geolocation is not supported by this browser.";
-    return;
-  }
-
-  result.innerHTML = "Getting your location...";
-  barberList.innerHTML = "";
-  mapImg.style.display = "none";
-
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      const lat = position.coords.latitude.toFixed(5);
-      const lon = position.coords.longitude.toFixed(5);
-
-      // Show GPS coordinates
-      result.innerHTML = `
-        <strong>Your Location</strong><br>
-        Latitude: ${lat}<br>
-        Longitude: ${lon}
-      `;
-
-      // Static map (OpenStreetMap)
-      mapImg.src = `https://staticmap.openstreetmap.de/staticmap.php?center=${lat},${lon}&zoom=15&size=300x150&markers=${lat},${lon},red-pushpin`;
-      mapImg.style.display = "block";
-
-      // Nearby barbers (mock data)
-      barberList.innerHTML = `
-        <h3 style="margin-bottom:8px;">Nearby Barbers</h3>
-
-        <div class="barber-card">
-          <img src="https://via.placeholder.com/50" onerror="this.src='https://via.placeholder.com/50?text=No+Image'" />
-          <div>
-            <strong>Fade Studio</strong><br>
-            0.5 km away
-          </div>
-        </div>
-
-        <div class="barber-card">
-          <img src="https://via.placeholder.com/50" onerror="this.src='https://via.placeholder.com/50?text=No+Image'" />
-          <div>
-            <strong>UTM Barber Shop</strong><br>
-            0.8 km away
-          </div>
-        </div>
-
-        <div class="barber-card">
-          <img src="https://via.placeholder.com/50" onerror="this.src='https://via.placeholder.com/50?text=No+Image'" />
-          <div>
-            <strong>Classic Cut</strong><br>
-            1.2 km away
-          </div>
-        </div>
-      `;
-    },
-    (error) => {
-      result.innerHTML = "Unable to retrieve location.";
-    }
-  );
-}
-
-  // List of barbershops (same as GPS screen)
-const barbershops = [
-  { name: "Fade Studio", distance: "0.5 km" },
-  { name: "UTM Barber Shop", distance: "0.8 km" },
-  { name: "Classic Cut", distance: "1.2 km" }
-];
-
-// Populate barbershop dropdown in Booking screen
-function populateBarbershops() {
-  const select = document.getElementById("barbershop-select");
-  select.innerHTML = ""; // clear any existing options
-
-  barbershops.forEach(shop => {
-    const option = document.createElement("option");
-    option.value = shop.name;
-    option.textContent = `${shop.name} (${shop.distance})`;
-    select.appendChild(option);
-  });
-}
-
-// Call it when the Booking screen opens
-function openScreen(id) {
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.classList.remove('active');
-  });
-
-  const screen = document.getElementById(id);
-  screen.classList.add('active');
-
-  if (id === "booking") populateBarbershops();
-  if (id === "shifts") generateRandomShifts();
-  if (id === "portfolio") populatePortfolio();
-  if (id === "shop") populateShop();
-  if (id === "rewards") populateRewards();
-  if (id === "subscription") populateSubscriptions();
-  if (id === "haircutai") {
-    populateHaircutBarbershops();
-    populateHairstyles();
-  }
-}
-
-  
-
+  let userPoints = 325;
   let selectedTime = "";
+  let selectedHairstyle = "";
 
-  function showTimePopup() {
-    document.getElementById("time-popup").style.display = "block";
+  // Navigation
+  function goBack() { openScreen('home'); }
+
+  function openScreen(id) {
+    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+    const screen = document.getElementById(id);
+    screen.classList.add('active');
+
+    if(id === "booking") populateBarbershops();
+    if(id === "shifts") generateRandomShifts();
+    if(id === "portfolio") populatePortfolio();
+    if(id === "shop") populateShop();
+    if(id === "rewards") populateRewards();
+    if(id === "subscription") populateSubscriptions();
+    if(id === "haircutai") {
+      populateHaircutBarbershops();
+      populateHairstyles();
+    }
   }
 
+  // Booking
+  function populateBarbershops() {
+    const select = document.getElementById("barbershop-select");
+    select.innerHTML = "";
+    barbershops.forEach(shop => {
+      const option = document.createElement("option");
+      option.value = shop.name;
+      option.textContent = `${shop.name} (${shop.distance})`;
+      select.appendChild(option);
+    });
+  }
+
+  function showTimePopup() { document.getElementById("time-popup").style.display = "block"; }
   function selectTime(time) {
     selectedTime = time;
-
-    document.querySelectorAll(".time-slots button").forEach(btn => {
-      btn.classList.remove("active");
-    });
-
+    document.querySelectorAll(".time-slots button").forEach(btn => btn.classList.remove("active"));
     event.target.classList.add("active");
   }
-
   function confirmBooking() {
-  const date = document.getElementById("booking-date").value;
-  const barber = document.getElementById("barbershop-select").value;
-
-  if (!date || !selectedTime) {
-    alert("Please select a date and time.");
-    return;
+    const date = document.getElementById("booking-date").value;
+    const barber = document.getElementById("barbershop-select").value;
+    if (!date || !selectedTime) return alert("Please select a date and time.");
+    alert(`Booking confirmed!\nBarbershop: ${barber}\nDate: ${date}\nTime: ${selectedTime}`);
+    goBack();
   }
 
-  alert(`Booking confirmed!\nBarbershop: ${barber}\nDate: ${date}\nTime: ${selectedTime}`);
-  goBack();
-}
+  // Shifts
   function generateRandomShifts() {
-  const shiftsContainer = document.getElementById("shifts-container");
-  shiftsContainer.innerHTML = ""; // clear previous content
+    const container = document.getElementById("shifts-container");
+    container.innerHTML = "";
+    barbershops.forEach(shop => {
+      const barberName = "John Doe";
+      const shifts = [];
+      const startHours = [9,10,11,12,13,14,15,16];
+      const numShifts = Math.floor(Math.random()*3)+2;
+      for(let i=0;i<numShifts;i++){
+        const start=startHours[Math.floor(Math.random()*startHours.length)];
+        const end=start+Math.floor(Math.random()*3)+1;
+        shifts.push(`${start}:00 - ${end}:00`);
+      }
+      const div = document.createElement("div");
+      div.style.background="#fff"; div.style.padding="10px"; div.style.borderRadius="12px"; div.style.marginBottom="10px"; div.style.boxShadow="0 2px 6px rgba(0,0,0,0.1)";
+      div.innerHTML=`<strong>${shop.name}</strong> - ${barberName}<br>Shifts: ${shifts.join(", ")}`;
+      container.appendChild(div);
+    });
+  }
 
-  barbershops.forEach(shop => {
-    // Example barber name
-    const barberName = "John Doe";
+  // Portfolio
+  function populatePortfolio() {
+    const container = document.getElementById("portfolio-container");
+    container.innerHTML = "";
+    barbers.forEach(b=>{
+      const card=document.createElement("div");
+      card.style.background="#fff"; card.style.padding="12px"; card.style.borderRadius="12px"; card.style.marginBottom="12px"; card.style.boxShadow="0 2px 6px rgba(0,0,0,0.1)";
+      card.innerHTML=`<strong>${b.name}</strong> - ${b.shop}<br>Experience: ${b.experience} years<br>Rating: ${b.rating} ⭐<br><div style="display:flex; gap:8px; margin-top:8px;">${b.images.map(img=>`<img src="${img}" style="width:80px;height:80px;border-radius:8px;" onerror="this.src='https://via.placeholder.com/80?text=No+Image'">`).join("")}</div>`;
+      container.appendChild(card);
+    });
+  }
 
-    // Generate random shifts (2–3 per day)
-    const shifts = [];
-    const startHours = [9, 10, 11, 12, 13, 14, 15, 16];
-    const numShifts = Math.floor(Math.random() * 3) + 2; // 2–4 shifts
+  // Shop
+  function populateShop() {
+    const container=document.getElementById("shop-container"); container.innerHTML="";
+    shopItems.forEach(item=>{
+      const card=document.createElement("div"); card.style.display="flex"; card.style.alignItems="center"; card.style.background="#fff"; card.style.padding="10px"; card.style.borderRadius="12px"; card.style.marginBottom="10px"; card.style.boxShadow="0 2px 6px rgba(0,0,0,0.1)"; card.style.gap="12px";
+      card.innerHTML=`<img src="${item.img}" style="width:60px;height:60px;border-radius:8px;" onerror="this.src='https://via.placeholder.com/60?text=No+Image'"><div><strong>${item.name}</strong><br>Price: ${item.price}</div>`;
+      container.appendChild(card);
+    });
+  }
 
-    for (let i = 0; i < numShifts; i++) {
-      const start = startHours[Math.floor(Math.random() * startHours.length)];
-      const end = start + Math.floor(Math.random() * 3) + 1; // 1–3 hours shift
-      shifts.push(`${start}:00 - ${end}:00`);
+  // Rewards
+  const rewards = [
+    { name: "10% Discount", points: 50 },
+    { name: "Free Haircut", points: 200 }
+  ];
+  function populateRewards() {
+    alert("Rewards feature coming soon!");
+  }
+
+  // Subscription
+  const subscriptions = [
+    { plan: "Monthly", price: "RM 50" },
+    { plan: "Yearly", price: "RM 500" }
+  ];
+  function populateSubscriptions() {
+    const container = document.getElementById("subscription-container");
+    container.innerHTML = "";
+    subscriptions.forEach(sub => {
+      const div = document.createElement("div");
+      div.style.background="#fff"; div.style.padding="12px"; div.style.borderRadius="12px"; div.style.marginBottom="10px"; div.style.boxShadow="0 2px 6px rgba(0,0,0,0.1)";
+      div.innerHTML=`<strong>${sub.plan}</strong><br>Price: ${sub.price}`;
+      container.appendChild(div);
+    });
+  }
+
+  // Haircut AI
+  function populateHaircutBarbershops() {
+    const select=document.getElementById("haircut-barbershop");
+    select.innerHTML="";
+    barbershops.forEach(shop=>{
+      const opt=document.createElement("option"); opt.value=shop.name; opt.textContent=shop.name; select.appendChild(opt);
+    });
+  }
+  function populateHairstyles() {
+    const container=document.getElementById("hairstyle-suggestions");
+    container.innerHTML="<p>Select face shape and barbershop, then click Apply Selected Style.</p>";
+  }
+  function applyHaircutAI() {
+    alert("Haircut AI suggestions applied!");
+  }
+
+  // GPS
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      document.getElementById("gps-result").textContent="Geolocation is not supported.";
     }
-
-    // Display shifts for this barber and barbershop
-    const shopDiv = document.createElement("div");
-    shopDiv.style.background = "#fff";
-    shopDiv.style.padding = "10px";
-    shopDiv.style.borderRadius = "12px";
-    shopDiv.style.marginBottom = "10px";
-    shopDiv.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
-
-    shopDiv.innerHTML = `
-      <strong>${shop.name}</strong> - ${barberName}<br>
-      Shifts: ${shifts.join(", ")}
-    `;
-
-    shiftsContainer.appendChild(shopDiv);
-  });
-}
-
-// Call this function whenever the Shifts screen opens
-function openScreen(id) {
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.classList.remove('active');
-  });
-  const screen = document.getElementById(id);
-  screen.classList.add('active');
-
-  if (id === "booking") populateBarbershops();
-  if (id === "shifts") generateRandomShifts(); // <-- new
-}
-  // Mock portfolio data for each barber
-const barbers = [
-  {
-    name: "Ali",
-    shop: "Fade Studio",
-    experience: 5, // years
-    rating: 4.5,
-    images: [
-      "https://via.placeholder.com/100?text=Haircut+1",
-      "https://via.placeholder.com/100?text=Haircut+2",
-      "https://via.placeholder.com/100?text=Haircut+3"
-    ]
-  },
-  {
-    name: "Ariff",
-    shop: "UTM Barber Shop",
-    experience: 3,
-    rating: 4.2,
-    images: [
-      "https://via.placeholder.com/100?text=Haircut+1",
-      "https://via.placeholder.com/100?text=Haircut+2"
-    ]
-  },
-  {
-    name: "Mohd",
-    shop: "Classic Cut",
-    experience: 7,
-    rating: 4.8,
-    images: [
-      "https://via.placeholder.com/100?text=Haircut+1",
-      "https://via.placeholder.com/100?text=Haircut+2",
-      "https://via.placeholder.com/100?text=Haircut+3",
-      "https://via.placeholder.com/100?text=Haircut+4"
-    ]
   }
-];
-
-// Populate Portfolio screen
-function populatePortfolio() {
-  const container = document.getElementById("portfolio-container");
-  container.innerHTML = "";
-
-  barbers.forEach(barber => {
-    const card = document.createElement("div");
-    card.style.background = "#fff";
-    card.style.padding = "12px";
-    card.style.borderRadius = "12px";
-    card.style.marginBottom = "12px";
-    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
-
-    // Barber info
-    card.innerHTML = `
-      <strong>${barber.name}</strong> - ${barber.shop}<br>
-      Experience: ${barber.experience} years<br>
-      Rating: ${barber.rating} ⭐<br>
-      <div style="display:flex; gap:8px; margin-top:8px;">
-        ${barber.images.map(img => `<img src="${img}" style="width:80px; height:80px; border-radius:8px;" 
-           onerror="this.src='https://via.placeholder.com/80?text=No+Image'">`).join("")}
-      </div>
-    `;
-
-    container.appendChild(card);
-  });
-}
-
-// Call this when Portfolio screen opens
-function openScreen(id) {
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.classList.remove('active');
-  });
-  const screen = document.getElementById(id);
-  screen.classList.add('active');
-
-  if (id === "booking") populateBarbershops();
-  if (id === "shifts") generateRandomShifts();
-  if (id === "portfolio") populatePortfolio(); // <-- new
-}
-  const shopItems = [
-  { name: "Hair Clippers", price: "RM 45", img: "https://via.placeholder.com/80?text=Clippers" },
-  { name: "Scissors", price: "RM 25", img: "https://via.placeholder.com/80?text=Scissors" },
-  { name: "Hair Gel", price: "RM 10", img: "https://via.placeholder.com/80?text=Gel" },
-  { name: "Barber Cape", price: "RM 15", img: "https://via.placeholder.com/80?text=Cape" },
-  { name: "Comb Set", price: "RM 12", img: "https://via.placeholder.com/80?text=Comb" },
-  { name: "Hair Spray", price: "RM 8", img: "https://via.placeholder.com/80?text=Spray" }
-];
-
-// Populate Shop screen
-function populateShop() {
-  const container = document.getElementById("shop-container");
-  container.innerHTML = "";
-
-  shopItems.forEach(item => {
-    const card = document.createElement("div");
-    card.style.display = "flex";
-    card.style.alignItems = "center";
-    card.style.background = "#fff";
-    card.style.padding = "10px";
-    card.style.borderRadius = "12px";
-    card.style.marginBottom = "10px";
-    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
-    card.style.gap = "12px";
-
-    card.innerHTML = `
-      <img src="${item.img}" style="width:60px; height:60px; border-radius:8px;" 
-           onerror="this.src='https://via.placeholder.com/60?text=No+Image'">
-      <div>
-        <strong>${item.name}</strong><br>
-        Price: ${item.price}
-      </div>
-    `;
-
-    container.appendChild(card);
-  });
-}
-
-// Call this whenever Shop screen opens
-function openScreen(id) {
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.classList.remove('active');
-  });
-  const screen = document.getElementById(id);
-  screen.classList.add('active');
-
-  if (id === "booking") populateBarbershops();
-  if (id === "shifts") generateRandomShifts();
-  if (id === "portfolio") populatePortfolio();
-  if (id === "shop") populateShop(); // <-- new
-}
-  // Example rewards
-const rewards = [
-  { name: "10% Discount Voucher", points: 50 },
-  { name: "Free Haircut Voucher", points: 200 },
-  { name: "Barber Cape", points: 150 },
-  { name: "Hair Gel", points: 80 },
-  { name: "Comb Set", points: 60 }
-];
-
-// Track user points (from your footer)
-let userPoints = 325;
-
-// Populate Rewards screen
-function populateRewards() {
-  const container = document.getElementById("rewards-container");
-  container.innerHTML = "";
-
-  rewards.forEach(reward => {
-    const card = document.createElement("div");
-    card.style.display = "flex";
-    card.style.justifyContent = "space-between";
-    card.style.alignItems = "center";
-    card.style.background = "#fff";
-    card.style.padding = "10px";
-    card.style.borderRadius = "12px";
-    card.style.marginBottom = "10px";
-    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
-
-    card.innerHTML = `
-      <div>
-        <strong>${reward.name}</strong><br>
-        Points: ${reward.points}
-      </div>
-      <button class="btn-main" style="padding:8px 12px; font-size:14px;" 
-              onclick="redeemReward(${reward.points}, '${reward.name}')">Redeem</button>
-    `;
-
-    container.appendChild(card);
-  });
-}
-
-// Redeem points
-function redeemReward(cost, rewardName) {
-  if (userPoints >= cost) {
-    userPoints -= cost;
-    alert(`You have redeemed: ${rewardName}\nRemaining points: ${userPoints}`);
-    document.querySelector(".points").textContent = `You have ${userPoints} points`;
-  } else {
-    alert(`Not enough points to redeem ${rewardName}. You have ${userPoints} points.`);
-  }
-}
-
-// Call this whenever Rewards screen opens
-function openScreen(id) {
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.classList.remove('active');
-  });
-  const screen = document.getElementById(id);
-  screen.classList.add('active');
-
-  if (id === "booking") populateBarbershops();
-  if (id === "shifts") generateRandomShifts();
-  if (id === "portfolio") populatePortfolio();
-  if (id === "shop") populateShop();
-  if (id === "rewards") populateRewards(); // <-- new
-}
-  // Example subscription plans
-const subscriptions = [
-  { name: "Silver Membership", price: 30, benefits: ["5% Discount on services", "Priority booking"] },
-  { name: "Gold Membership", price: 60, benefits: ["10% Discount on services", "Priority booking", "1 Free Haircut Voucher"] },
-  { name: "Platinum Membership", price: 100, benefits: ["15% Discount on services", "Priority booking", "2 Free Haircut Vouchers", "Exclusive Offers"] }
-];
-
-// Populate Subscription screen
-function populateSubscriptions() {
-  const container = document.getElementById("subscription-container");
-  container.innerHTML = "";
-
-  subscriptions.forEach(sub => {
-    const card = document.createElement("div");
-    card.style.background = "#fff";
-    card.style.padding = "12px";
-    card.style.borderRadius = "12px";
-    card.style.marginBottom = "12px";
-    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
-
-    card.innerHTML = `
-      <strong>${sub.name}</strong><br>
-      Price: RM ${sub.price}<br>
-      Benefits:
-      <ul style="margin:5px 0 10px 15px; padding:0;">
-        ${sub.benefits.map(b => `<li>${b}</li>`).join("")}
-      </ul>
-      <button class="btn-main" style="width:100%;" onclick="subscribePlan('${sub.name}', ${sub.price})">Subscribe</button>
-    `;
-
-    container.appendChild(card);
-  });
-}
-
-// Mock subscription action
-function subscribePlan(name, price) {
-  alert(`You have subscribed to ${name} for RM ${price}!\n(Prototype only)`);
-}
-
-// Call this whenever Subscription screen opens
-function openScreen(id) {
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.classList.remove('active');
-  });
-  const screen = document.getElementById(id);
-  screen.classList.add('active');
-
-  if (id === "booking") populateBarbershops();
-  if (id === "shifts") generateRandomShifts();
-  if (id === "portfolio") populatePortfolio();
-  if (id === "shop") populateShop();
-  if (id === "rewards") populateRewards();
-  if (id === "subscription") populateSubscriptions(); // <-- new
-}
-  // Suggested hairstyles (mock images)
-const hairstyles = [
-  { name: "Classic Fade", img: "https://via.placeholder.com/80?text=Fade" },
-  { name: "Crew Cut", img: "https://via.placeholder.com/80?text=Crew" },
-  { name: "Undercut", img: "https://via.placeholder.com/80?text=Undercut" },
-  { name: "Pompadour", img: "https://via.placeholder.com/80?text=Pompadour" },
-  { name: "Textured Crop", img: "https://via.placeholder.com/80?text=Crop" }
-];
-
-// Populate barbershop selector (reuse barbershops)
-function populateHaircutBarbershops() {
-  const select = document.getElementById("haircut-barbershop");
-  select.innerHTML = "";
-  barbershops.forEach(shop => {
-    const option = document.createElement("option");
-    option.value = shop.name;
-    option.textContent = shop.name;
-    select.appendChild(option);
-  });
-}
-
-// Show hairstyle suggestions
-function populateHairstyles() {
-  const container = document.getElementById("hairstyle-suggestions");
-  container.innerHTML = "";
-
-  hairstyles.forEach(style => {
-    const card = document.createElement("div");
-    card.style.display = "flex";
-    card.style.alignItems = "center";
-    card.style.background = "#fff";
-    card.style.padding = "10px";
-    card.style.borderRadius = "12px";
-    card.style.marginBottom = "10px";
-    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
-    card.style.gap = "12px";
-    card.style.cursor = "pointer";
-
-    card.innerHTML = `
-      <img src="${style.img}" style="width:60px; height:60px; border-radius:8px;" 
-           onerror="this.src='https://via.placeholder.com/60?text=No+Image'">
-      <div>${style.name}</div>
-    `;
-
-    // Highlight selected hairstyle
-    card.onclick = () => {
-      document.querySelectorAll("#hairstyle-suggestions div").forEach(c => c.style.background = "#fff");
-      card.style.background = "#ffddf0"; // selected highlight
-      selectedHairstyle = style.name;
-    };
-
-    container.appendChild(card);
-  });
-}
-
-// Mock apply action
-let selectedHairstyle = "";
-function applyHaircutAI() {
-  const shop = document.getElementById("haircut-barbershop").value;
-  const faceShape = document.getElementById("face-shape").value;
-
-  if (!selectedHairstyle) {
-    alert("Please select a hairstyle.");
-    return;
+  function showPosition(position){
+    const {latitude, longitude}=position.coords;
+    document.getElementById("gps-result").textContent=`Lat: ${latitude}, Lon: ${longitude}`;
+    const img=document.getElementById("map-image");
+    img.src=`https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=15&size=300x200&markers=color:red%7C${latitude},${longitude}&key=YOUR_API_KEY`;
+    img.style.display="block";
+    const list=document.getElementById("barber-list");
+    list.innerHTML=barbershops.map(s=>`<div class="barber-card"><img src="https://via.placeholder.com/50?text=Shop"><span>${s.name} - ${s.distance}</span></div>`).join("");
   }
 
-  alert(`AI Suggestion Applied!\nBarbershop: ${shop}\nFace Shape: ${faceShape}\nHairstyle: ${selectedHairstyle}`);
-}
-
-// Call this when Haircut AI screen opens
-function openScreen(id) {
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.classList.remove('active');
-  });
-  const screen = document.getElementById(id);
-  screen.classList.add('active');
-
-  if (id === "booking") populateBarbershops();
-  if (id === "shifts") generateRandomShifts();
-  if (id === "portfolio") populatePortfolio();
-  if (id === "shop") populateShop();
-  if (id === "rewards") populateRewards();
-  if (id === "subscription") populateSubscriptions();
-  if (id === "haircutai") {
-    populateHaircutBarbershops();
-    populateHairstyles();
-  }
-}
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
