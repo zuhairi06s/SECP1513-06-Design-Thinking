@@ -290,3 +290,370 @@
     <select id="face-shape" class="calendar">
       <option value="oval">Oval</option>
       <option value="round">Round</option>
+      <option value="square">Square</option>
+      <option value="heart">Heart</option>
+      <option value="diamond">Diamond</option>
+    </select>
+    <div id="hairstyle-suggestions"></div>
+    <button class="btn-main" onclick="applyHaircutAI()">Apply Selected Style</button>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
+
+  <!-- GPS SCREEN -->
+  <div class="menu screen" id="gps">
+    <h2>📍 GPS</h2>
+    <button class="btn-main" onclick="getLocation()">Get My Location</button>
+    <div id="gps-result"></div>
+    <img id="map-image" style="display:none; width:100%; border-radius:12px; margin-top:12px;" />
+    <div id="barber-list" style="max-height:500px; overflow-y:auto; margin-top:15px;"></div>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
+
+  <!-- SUBSCRIPTION SCREEN -->
+  <div class="menu screen" id="subscription">
+    <h2>💳 Subscription Plans</h2>
+    <div id="subscription-container" style="max-height:500px; overflow-y:auto;"></div>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
+
+  <!-- GALLERY SCREEN -->
+  <div class="menu screen" id="gallery">
+    <h2>🖼 Gallery</h2>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>🎤 AI Voice Assistant</span>
+    <span class="points">You have 325 points</span>
+  </div>
+</div>
+
+<script>
+  // Common data
+  const barbershops = [
+    { name: "Fade Studio", distance: "0.5 km" },
+    { name: "UTM Barber Shop", distance: "0.8 km" },
+    { name: "Classic Cut", distance: "1.2 km" }
+  ];
+
+  const barbers = [
+    { name: "Ali", shop: "Fade Studio", experience: 5, rating: 4.5, images: ["https://via.placeholder.com/100?text=Haircut+1","https://via.placeholder.com/100?text=Haircut+2","https://via.placeholder.com/100?text=Haircut+3"] },
+    { name: "Ariff", shop: "UTM Barber Shop", experience: 3, rating: 4.2, images: ["https://via.placeholder.com/100?text=Haircut+1","https://via.placeholder.com/100?text=Haircut+2"] },
+    { name: "Mohd", shop: "Classic Cut", experience: 7, rating: 4.8, images: ["https://via.placeholder.com/100?text=Haircut+1","https://via.placeholder.com/100?text=Haircut+2","https://via.placeholder.com/100?text=Haircut+3","https://via.placeholder.com/100?text=Haircut+4"] }
+  ];
+
+  const shopItems = [
+    { name: "Hair Clippers", price: "RM 45", img: "https://via.placeholder.com/80?text=Clippers" },
+    { name: "Scissors", price: "RM 25", img: "https://via.placeholder.com/80?text=Scissors" },
+    { name: "Hair Gel", price: "RM 10", img: "https://via.placeholder.com/80?text=Gel" }
+  ];
+
+  let userPoints = 325;
+  let selectedTime = "";
+  let selectedHairstyle = "";
+
+  // Navigation
+  function goBack() { openScreen('home'); }
+
+  function openScreen(id) {
+    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+    const screen = document.getElementById(id);
+    screen.classList.add('active');
+
+    if(id === "booking") populateBarbershops();
+    if(id === "shifts") generateRandomShifts();
+    if(id === "portfolio") populatePortfolio();
+    if(id === "shop") populateShop();
+    if(id === "rewards") populateRewards();
+    if(id === "subscription") populateSubscriptions();
+    if(id === "haircutai") {
+      populateHaircutBarbershops();
+      populateHairstyles();
+    }
+  }
+
+  // Booking
+  function populateBarbershops() {
+    const select = document.getElementById("barbershop-select");
+    select.innerHTML = "";
+    barbershops.forEach(shop => {
+      const option = document.createElement("option");
+      option.value = shop.name;
+      option.textContent = `${shop.name} (${shop.distance})`;
+      select.appendChild(option);
+    });
+  }
+
+  function showTimePopup() { document.getElementById("time-popup").style.display = "block"; }
+  function selectTime(time) {
+    selectedTime = time;
+    document.querySelectorAll(".time-slots button").forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+  }
+  function confirmBooking() {
+    const date = document.getElementById("booking-date").value;
+    const barber = document.getElementById("barbershop-select").value;
+    if (!date || !selectedTime) return alert("Please select a date and time.");
+    alert(`Booking confirmed!\nBarbershop: ${barber}\nDate: ${date}\nTime: ${selectedTime}`);
+    goBack();
+  }
+
+  // Shifts
+  function generateRandomShifts() {
+    const container = document.getElementById("shifts-container");
+    container.innerHTML = "";
+    barbershops.forEach(shop => {
+      const barberName = "John Doe";
+      const shifts = [];
+      const startHours = [9,10,11,12,13,14,15,16];
+      const numShifts = Math.floor(Math.random()*3)+2;
+      for(let i=0;i<numShifts;i++){
+        const start=startHours[Math.floor(Math.random()*startHours.length)];
+        const end=start+Math.floor(Math.random()*3)+1;
+        shifts.push(`${start}:00 - ${end}:00`);
+      }
+      const div = document.createElement("div");
+      div.style.background="#fff"; div.style.padding="10px"; div.style.borderRadius="12px"; div.style.marginBottom="10px"; div.style.boxShadow="0 2px 6px rgba(0,0,0,0.1)";
+      div.innerHTML=`<strong>${shop.name}</strong> - ${barberName}<br>Shifts: ${shifts.join(", ")}`;
+      container.appendChild(div);
+    });
+  }
+
+  // Portfolio
+  function populatePortfolio() {
+    const container = document.getElementById("portfolio-container");
+    container.innerHTML = "";
+    barbers.forEach(b=>{
+      const card=document.createElement("div");
+      card.style.background="#fff"; card.style.padding="12px"; card.style.borderRadius="12px"; card.style.marginBottom="12px"; card.style.boxShadow="0 2px 6px rgba(0,0,0,0.1)";
+      card.innerHTML=`<strong>${b.name}</strong> - ${b.shop}<br>Experience: ${b.experience} years<br>Rating: ${b.rating} ⭐<br><div style="display:flex; gap:8px; margin-top:8px;">${b.images.map(img=>`<img src="${img}" style="width:80px;height:80px;border-radius:8px;" onerror="this.src='https://via.placeholder.com/80?text=No+Image'">`).join("")}</div>`;
+      container.appendChild(card);
+    });
+  }
+
+  // Shop
+  function populateShop() {
+    const container=document.getElementById("shop-container"); container.innerHTML="";
+    shopItems.forEach(item=>{
+      const card=document.createElement("div"); card.style.display="flex"; card.style.alignItems="center"; card.style.background="#fff"; card.style.padding="10px"; card.style.borderRadius="12px"; card.style.marginBottom="10px"; card.style.boxShadow="0 2px 6px rgba(0,0,0,0.1)"; card.style.gap="12px";
+      card.innerHTML=`<img src="${item.img}" style="width:60px;height:60px;border-radius:8px;" onerror="this.src='https://via.placeholder.com/60?text=No+Image'"><div><strong>${item.name}</strong><br>Price: ${item.price}</div>`;
+      container.appendChild(card);
+    });
+  }
+
+  // Rewards
+  const rewards = [
+    { name: "10% Discount Voucher", points: 50 },
+  { name: "Free Haircut Voucher", points: 200 },
+  { name: "Barber Cape", points: 150 },
+  { name: "Hair Gel", points: 80 },
+  { name: "Comb Set", points: 60 }
+];
+
+// Track user points (from your footer)
+let userPoints = 325;
+
+// Populate Rewards screen
+function populateRewards() {
+  const container = document.getElementById("rewards-container");
+  container.innerHTML = "";
+
+  rewards.forEach(reward => {
+    const card = document.createElement("div");
+    card.style.display = "flex";
+    card.style.justifyContent = "space-between";
+    card.style.alignItems = "center";
+    card.style.background = "#fff";
+    card.style.padding = "10px";
+    card.style.borderRadius = "12px";
+    card.style.marginBottom = "10px";
+    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+
+    card.innerHTML = `
+      <div>
+        <strong>${reward.name}</strong><br>
+        Points: ${reward.points}
+      </div>
+      <button class="btn-main" style="padding:8px 12px; font-size:14px;" 
+              onclick="redeemReward(${reward.points}, '${reward.name}')">Redeem</button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// Redeem points
+function redeemReward(cost, rewardName) {
+  if (userPoints >= cost) {
+    userPoints -= cost;
+    alert(`You have redeemed: ${rewardName}\nRemaining points: ${userPoints}`);
+    document.querySelector(".points").textContent = `You have ${userPoints} points`;
+  } else {
+    alert(`Not enough points to redeem ${rewardName}. You have ${userPoints} points.`);
+  }
+}
+
+// Call this whenever Rewards screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts();
+  if (id === "portfolio") populatePortfolio();
+  if (id === "shop") populateShop();
+  if (id === "rewards") populateRewards(); // <-- new
+}
+  // Example subscription plans
+const subscriptions = [
+  { name: "Silver Membership", price: 30, benefits: ["5% Discount on services", "Priority booking"] },
+  { name: "Gold Membership", price: 60, benefits: ["10% Discount on services", "Priority booking", "1 Free Haircut Voucher"] },
+  { name: "Platinum Membership", price: 100, benefits: ["15% Discount on services", "Priority booking", "2 Free Haircut Vouchers", "Exclusive Offers"] }
+];
+
+// Populate Subscription screen
+function populateSubscriptions() {
+  const container = document.getElementById("subscription-container");
+  container.innerHTML = "";
+
+  subscriptions.forEach(sub => {
+    const card = document.createElement("div");
+    card.style.background = "#fff";
+    card.style.padding = "12px";
+    card.style.borderRadius = "12px";
+    card.style.marginBottom = "12px";
+    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+
+    card.innerHTML = `
+      <strong>${sub.name}</strong><br>
+      Price: RM ${sub.price}<br>
+      Benefits:
+      <ul style="margin:5px 0 10px 15px; padding:0;">
+        ${sub.benefits.map(b => `<li>${b}</li>`).join("")}
+      </ul>
+      <button class="btn-main" style="width:100%;" onclick="subscribePlan('${sub.name}', ${sub.price})">Subscribe</button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// Mock subscription action
+function subscribePlan(name, price) {
+  alert(`You have subscribed to ${name} for RM ${price}!\n(Prototype only)`);
+}
+
+// Call this whenever Subscription screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts();
+  if (id === "portfolio") populatePortfolio();
+  if (id === "shop") populateShop();
+  if (id === "rewards") populateRewards();
+  if (id === "subscription") populateSubscriptions(); // <-- new
+}
+  // Suggested hairstyles (mock images)
+const hairstyles = [
+  { name: "Classic Fade", img: "https://via.placeholder.com/80?text=Fade" },
+  { name: "Crew Cut", img: "https://via.placeholder.com/80?text=Crew" },
+  { name: "Undercut", img: "https://via.placeholder.com/80?text=Undercut" },
+  { name: "Pompadour", img: "https://via.placeholder.com/80?text=Pompadour" },
+  { name: "Textured Crop", img: "https://via.placeholder.com/80?text=Crop" }
+];
+
+// Populate barbershop selector (reuse barbershops)
+function populateHaircutBarbershops() {
+  const select = document.getElementById("haircut-barbershop");
+  select.innerHTML = "";
+  barbershops.forEach(shop => {
+    const option = document.createElement("option");
+    option.value = shop.name;
+    option.textContent = shop.name;
+    select.appendChild(option);
+  });
+}
+
+// Show hairstyle suggestions
+function populateHairstyles() {
+  const container = document.getElementById("hairstyle-suggestions");
+  container.innerHTML = "";
+
+  hairstyles.forEach(style => {
+    const card = document.createElement("div");
+    card.style.display = "flex";
+    card.style.alignItems = "center";
+    card.style.background = "#fff";
+    card.style.padding = "10px";
+    card.style.borderRadius = "12px";
+    card.style.marginBottom = "10px";
+    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+    card.style.gap = "12px";
+    card.style.cursor = "pointer";
+
+    card.innerHTML = `
+      <img src="${style.img}" style="width:60px; height:60px; border-radius:8px;" 
+           onerror="this.src='https://via.placeholder.com/60?text=No+Image'">
+      <div>${style.name}</div>
+    `;
+
+    // Highlight selected hairstyle
+    card.onclick = () => {
+      document.querySelectorAll("#hairstyle-suggestions div").forEach(c => c.style.background = "#fff");
+      card.style.background = "#ffddf0"; // selected highlight
+      selectedHairstyle = style.name;
+    };
+
+    container.appendChild(card);
+  });
+}
+
+// Mock apply action
+let selectedHairstyle = "";
+function applyHaircutAI() {
+  const shop = document.getElementById("haircut-barbershop").value;
+  const faceShape = document.getElementById("face-shape").value;
+
+  if (!selectedHairstyle) {
+    alert("Please select a hairstyle.");
+    return;
+  }
+
+  alert(`AI Suggestion Applied!\nBarbershop: ${shop}\nFace Shape: ${faceShape}\nHairstyle: ${selectedHairstyle}`);
+}
+
+// Call this when Haircut AI screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts();
+  if (id === "portfolio") populatePortfolio();
+  if (id === "shop") populateShop();
+  if (id === "rewards") populateRewards();
+  if (id === "subscription") populateSubscriptions();
+  if (id === "haircutai") {
+    populateHaircutBarbershops();
+    populateHairstyles();
+  }
+}
+</script>
+
+</body>
+</html>
+
+
+
