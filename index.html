@@ -283,7 +283,7 @@
   <!-- PORTFOLIO SCREEN -->
   <div class="menu screen" id="portfolio">
     <h2>Portfolio</h2>
-    <p>View haircut styles</p>
+    <div id="portfolio-container" style="margin-top:15px;"></div>
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
@@ -544,10 +544,88 @@ function openScreen(id) {
   if (id === "booking") populateBarbershops();
   if (id === "shifts") generateRandomShifts(); // <-- new
 }
+  // Mock portfolio data for each barber
+const barbers = [
+  {
+    name: "Ali",
+    shop: "Fade Studio",
+    experience: 5, // years
+    rating: 4.5,
+    images: [
+      "https://via.placeholder.com/100?text=Haircut+1",
+      "https://via.placeholder.com/100?text=Haircut+2",
+      "https://via.placeholder.com/100?text=Haircut+3"
+    ]
+  },
+  {
+    name: "Ariff",
+    shop: "UTM Barber Shop",
+    experience: 3,
+    rating: 4.2,
+    images: [
+      "https://via.placeholder.com/100?text=Haircut+1",
+      "https://via.placeholder.com/100?text=Haircut+2"
+    ]
+  },
+  {
+    name: "Mohd",
+    shop: "Classic Cut",
+    experience: 7,
+    rating: 4.8,
+    images: [
+      "https://via.placeholder.com/100?text=Haircut+1",
+      "https://via.placeholder.com/100?text=Haircut+2",
+      "https://via.placeholder.com/100?text=Haircut+3",
+      "https://via.placeholder.com/100?text=Haircut+4"
+    ]
+  }
+];
+
+// Populate Portfolio screen
+function populatePortfolio() {
+  const container = document.getElementById("portfolio-container");
+  container.innerHTML = "";
+
+  barbers.forEach(barber => {
+    const card = document.createElement("div");
+    card.style.background = "#fff";
+    card.style.padding = "12px";
+    card.style.borderRadius = "12px";
+    card.style.marginBottom = "12px";
+    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+
+    // Barber info
+    card.innerHTML = `
+      <strong>${barber.name}</strong> - ${barber.shop}<br>
+      Experience: ${barber.experience} years<br>
+      Rating: ${barber.rating} ⭐<br>
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        ${barber.images.map(img => `<img src="${img}" style="width:80px; height:80px; border-radius:8px;" 
+           onerror="this.src='https://via.placeholder.com/80?text=No+Image'">`).join("")}
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// Call this when Portfolio screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts();
+  if (id === "portfolio") populatePortfolio(); // <-- new
+}
 </script>
 
 </body>
 </html>
+
 
 
 
