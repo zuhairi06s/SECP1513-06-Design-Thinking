@@ -215,6 +215,8 @@
     <span>🔔</span>
   </div>
 
+
+  
   <!-- MAIN MENU -->
   <div class="menu screen active" id="home">
     <div class="section-title barbers-title">💈 Barbers</div>
@@ -235,35 +237,31 @@
     </div>
   </div>
 
+
+  
 <!-- BOOKING SCREEN -->
 <div class="menu screen" id="booking">
   <h2>📅 Book Appointment</h2>
-
   <!-- Barbershop selector -->
   <label for="barbershop-select" style="display:block; margin-bottom:10px; font-weight:bold;">Select Barbershop:</label>
   <select id="barbershop-select" class="calendar" style="width:100%; padding:10px; border-radius:12px; font-size:16px; margin-bottom:20px;">
     <!-- Options will be populated dynamically -->
   </select>
-
   <p>Select a date</p>
   <!-- Calendar -->
   <input type="date" id="booking-date" class="calendar" onchange="showTimePopup()" />
-
   <!-- Time Popup -->
   <div id="time-popup" class="time-popup">
     <h3>Select Time</h3>
-
-    <div class="time-slots">
+  <div class="time-slots">
       <button onclick="selectTime('10:00 AM')">10:00 AM</button>
       <button onclick="selectTime('12:00 PM')">12:00 PM</button>
       <button onclick="selectTime('2:00 PM')">2:00 PM</button>
       <button onclick="selectTime('4:00 PM')">4:00 PM</button>
     </div>
-
-    <button class="btn-main" onclick="confirmBooking()">Book Now</button>
+ <button class="btn-main" onclick="confirmBooking()">Book Now</button>
   </div>
-
-    <button class="back-btn" onclick="goBack()">Back</button>
+ <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
 
@@ -271,20 +269,21 @@
   <div class="menu screen" id="shifts">
     <h2>Shifts</h2>
     <p>View barber availability</p>
-
   <!-- Container for shifts -->
   <div id="shifts-container" style="margin-top:15px;"></div>
-
-    <button class="back-btn" onclick="goBack()">Back</button>
+ <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
-  <!-- PORTFOLIO SCREEN -->
+  
+  
+<!-- PORTFOLIO SCREEN -->
   <div class="menu screen" id="portfolio">
     <h2>Portfolio</h2>
     <div id="portfolio-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
+ 
   <!-- SHOP SCREEN -->
 <div class="menu screen" id="shop">
   <h2>Shop</h2>
@@ -292,13 +291,31 @@
   <button class="back-btn" onclick="goBack()">Back</button>
 </div>
 
+ 
   <!-- HAIRCUT AI SCREEN -->
-  <div class="menu screen" id="haircutai">
-    <h2>Haircut AI</h2>
-    <p>View haircut AI Features</p>
-    <button class="back-btn" onclick="goBack()">Back</button>
-  </div>
+<div class="menu screen" id="haircutai">
+  <h2>Haircut AI</h2>
+  <!-- Barbershop selector -->
+  <label for="haircut-barbershop" style="display:block; margin-bottom:10px; font-weight:bold;">Select Barbershop:</label>
+  <select id="haircut-barbershop" class="calendar" style="width:100%; padding:10px; border-radius:12px; font-size:16px; margin-bottom:20px;">
+    <!-- Options populated dynamically -->
+  </select>
+ <!-- Upload or choose face shape -->
+  <label for="face-shape" style="display:block; margin-bottom:5px;">Select Face Shape:</label>
+  <select id="face-shape" class="calendar" style="width:100%; padding:10px; border-radius:12px; font-size:16px; margin-bottom:20px;">
+    <option value="oval">Oval</option>
+    <option value="round">Round</option>
+    <option value="square">Square</option>
+    <option value="heart">Heart</option>
+    <option value="diamond">Diamond</option>
+  </select>
+  <!-- Suggested hairstyles -->
+  <div id="hairstyle-suggestions" style="margin-top:15px; max-height:400px; overflow-y:auto;"></div>
+  <button class="btn-main" onclick="applyHaircutAI()">Apply Selected Style</button>
+  <button class="back-btn" onclick="goBack()">Back</button>
+</div>
 
+ 
   <!-- REWARDS SCREEN -->
   <div class="menu screen" id="rewards">
     <h2>Rewards</h2>
@@ -307,26 +324,24 @@
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
+ 
   <!-- GPS SCREEN -->
   <div class="menu screen" id="gps">
   <h2>GPS</h2>
   <p>Find barbers near your location</p>
   <button class="btn-main" onclick="getLocation()">Get My Location</button>
-
   <div id="gps-result" style="margin-top:15px;"></div>
-
-  <!-- MAP IMAGE -->
+ <!-- MAP IMAGE -->
   <img id="map-image" 
        style="display:none; width:100%; border-radius:12px; margin-top:12px;" 
        alt="Map showing your location"
        onerror="this.style.display='none'; console.log('Map image failed to load');" />
-
   <!-- MOCK BARBERS -->
   <div id="barber-list" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
-
   <button class="back-btn" onclick="goBack()">Back</button>
 </div>
 
+ 
   <!-- SUBSCRIPTION SCREEN -->
 <div class="menu screen" id="subscription">
   <h2>Subscription Plans</h2>
@@ -790,10 +805,99 @@ function openScreen(id) {
   if (id === "rewards") populateRewards();
   if (id === "subscription") populateSubscriptions(); // <-- new
 }
+  // Suggested hairstyles (mock images)
+const hairstyles = [
+  { name: "Classic Fade", img: "https://via.placeholder.com/80?text=Fade" },
+  { name: "Crew Cut", img: "https://via.placeholder.com/80?text=Crew" },
+  { name: "Undercut", img: "https://via.placeholder.com/80?text=Undercut" },
+  { name: "Pompadour", img: "https://via.placeholder.com/80?text=Pompadour" },
+  { name: "Textured Crop", img: "https://via.placeholder.com/80?text=Crop" }
+];
+
+// Populate barbershop selector (reuse barbershops)
+function populateHaircutBarbershops() {
+  const select = document.getElementById("haircut-barbershop");
+  select.innerHTML = "";
+  barbershops.forEach(shop => {
+    const option = document.createElement("option");
+    option.value = shop.name;
+    option.textContent = shop.name;
+    select.appendChild(option);
+  });
+}
+
+// Show hairstyle suggestions
+function populateHairstyles() {
+  const container = document.getElementById("hairstyle-suggestions");
+  container.innerHTML = "";
+
+  hairstyles.forEach(style => {
+    const card = document.createElement("div");
+    card.style.display = "flex";
+    card.style.alignItems = "center";
+    card.style.background = "#fff";
+    card.style.padding = "10px";
+    card.style.borderRadius = "12px";
+    card.style.marginBottom = "10px";
+    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+    card.style.gap = "12px";
+    card.style.cursor = "pointer";
+
+    card.innerHTML = `
+      <img src="${style.img}" style="width:60px; height:60px; border-radius:8px;" 
+           onerror="this.src='https://via.placeholder.com/60?text=No+Image'">
+      <div>${style.name}</div>
+    `;
+
+    // Highlight selected hairstyle
+    card.onclick = () => {
+      document.querySelectorAll("#hairstyle-suggestions div").forEach(c => c.style.background = "#fff");
+      card.style.background = "#ffddf0"; // selected highlight
+      selectedHairstyle = style.name;
+    };
+
+    container.appendChild(card);
+  });
+}
+
+// Mock apply action
+let selectedHairstyle = "";
+function applyHaircutAI() {
+  const shop = document.getElementById("haircut-barbershop").value;
+  const faceShape = document.getElementById("face-shape").value;
+
+  if (!selectedHairstyle) {
+    alert("Please select a hairstyle.");
+    return;
+  }
+
+  alert(`AI Suggestion Applied!\nBarbershop: ${shop}\nFace Shape: ${faceShape}\nHairstyle: ${selectedHairstyle}`);
+}
+
+// Call this when Haircut AI screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts();
+  if (id === "portfolio") populatePortfolio();
+  if (id === "shop") populateShop();
+  if (id === "rewards") populateRewards();
+  if (id === "subscription") populateSubscriptions();
+  if (id === "haircutai") {
+    populateHaircutBarbershops();
+    populateHairstyles();
+  }
+}
 </script>
 
 </body>
 </html>
+
 
 
 
