@@ -283,7 +283,7 @@
   <!-- PORTFOLIO SCREEN -->
   <div class="menu screen" id="portfolio">
     <h2>Portfolio</h2>
-    <div id="portfolio-container" style="margin-top:15px;"></div>
+    <div id="portfolio-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
@@ -304,11 +304,11 @@
   <!-- REWARDS SCREEN -->
   <div class="menu screen" id="rewards">
     <h2>Rewards</h2>
-    <p>View rewards</p>
+    <p>Exchange your points for rewards</p>
+    <div id="rewards-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
 
-  <!-- GPS SCREEN -->
   <!-- GPS SCREEN -->
   <div class="menu screen" id="gps">
   <h2>GPS</h2>
@@ -324,7 +324,7 @@
        onerror="this.style.display='none'; console.log('Map image failed to load');" />
 
   <!-- MOCK BARBERS -->
-  <div id="barber-list" style="margin-top:15px;"></div>
+  <div id="barber-list" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
 
   <button class="back-btn" onclick="goBack()">Back</button>
 </div>
@@ -622,12 +622,12 @@ function openScreen(id) {
   if (id === "portfolio") populatePortfolio(); // <-- new
 }
   const shopItems = [
-  { name: "Hair Clippers", price: "$45", img: "https://via.placeholder.com/80?text=Clippers" },
-  { name: "Scissors", price: "$25", img: "https://via.placeholder.com/80?text=Scissors" },
-  { name: "Hair Gel", price: "$10", img: "https://via.placeholder.com/80?text=Gel" },
-  { name: "Barber Cape", price: "$15", img: "https://via.placeholder.com/80?text=Cape" },
-  { name: "Comb Set", price: "$12", img: "https://via.placeholder.com/80?text=Comb" },
-  { name: "Hair Spray", price: "$8", img: "https://via.placeholder.com/80?text=Spray" }
+  { name: "Hair Clippers", price: "RM 45", img: "https://via.placeholder.com/80?text=Clippers" },
+  { name: "Scissors", price: "RM 25", img: "https://via.placeholder.com/80?text=Scissors" },
+  { name: "Hair Gel", price: "RM 10", img: "https://via.placeholder.com/80?text=Gel" },
+  { name: "Barber Cape", price: "RM 15", img: "https://via.placeholder.com/80?text=Cape" },
+  { name: "Comb Set", price: "RM 12", img: "https://via.placeholder.com/80?text=Comb" },
+  { name: "Hair Spray", price: "RM 8", img: "https://via.placeholder.com/80?text=Spray" }
 ];
 
 // Populate Shop screen
@@ -672,10 +672,77 @@ function openScreen(id) {
   if (id === "portfolio") populatePortfolio();
   if (id === "shop") populateShop(); // <-- new
 }
+  // Example rewards
+const rewards = [
+  { name: "10% Discount Voucher", points: 50 },
+  { name: "Free Haircut Voucher", points: 200 },
+  { name: "Barber Cape", points: 150 },
+  { name: "Hair Gel", points: 80 },
+  { name: "Comb Set", points: 60 }
+];
+
+// Track user points (from your footer)
+let userPoints = 325;
+
+// Populate Rewards screen
+function populateRewards() {
+  const container = document.getElementById("rewards-container");
+  container.innerHTML = "";
+
+  rewards.forEach(reward => {
+    const card = document.createElement("div");
+    card.style.display = "flex";
+    card.style.justifyContent = "space-between";
+    card.style.alignItems = "center";
+    card.style.background = "#fff";
+    card.style.padding = "10px";
+    card.style.borderRadius = "12px";
+    card.style.marginBottom = "10px";
+    card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+
+    card.innerHTML = `
+      <div>
+        <strong>${reward.name}</strong><br>
+        Points: ${reward.points}
+      </div>
+      <button class="btn-main" style="padding:8px 12px; font-size:14px;" 
+              onclick="redeemReward(${reward.points}, '${reward.name}')">Redeem</button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// Redeem points
+function redeemReward(cost, rewardName) {
+  if (userPoints >= cost) {
+    userPoints -= cost;
+    alert(`You have redeemed: ${rewardName}\nRemaining points: ${userPoints}`);
+    document.querySelector(".points").textContent = `You have ${userPoints} points`;
+  } else {
+    alert(`Not enough points to redeem ${rewardName}. You have ${userPoints} points.`);
+  }
+}
+
+// Call this whenever Rewards screen opens
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const screen = document.getElementById(id);
+  screen.classList.add('active');
+
+  if (id === "booking") populateBarbershops();
+  if (id === "shifts") generateRandomShifts();
+  if (id === "portfolio") populatePortfolio();
+  if (id === "shop") populateShop();
+  if (id === "rewards") populateRewards(); // <-- new
+}
 </script>
 
 </body>
 </html>
+
 
 
 
