@@ -43,22 +43,34 @@
    
 
     .menu {
-      margin-top: 20px;
+      position: absolute;
+      top: 80px;        /* space for header */
+      bottom: 90px;     /* space for footer */
+      left: 20px;
+      right: 20px;
+
       background: #e4a6ee;
       border-radius: 20px;
       padding: 20px;
-      height: 560px;
-    } 
 
+      overflow-y: auto;  
+      
     .barbers-title {
-        position: absolute;
-        top: 95px;            /* distance from top border */
-        left: 20px;           /* distance from left border */
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 10px;
+}
 
-        font-weight: bold;
-        font-size: 20px;
-    }
-    
+}
+   /* .barbers-title {
+      position: absolute;
+       top: 95px;            
+       left: 20px;           
+
+       font-weight: bold;
+       font-size: 20px;
+    } 
+    */
 
     .section-title {
       font-weight: bold;
@@ -904,6 +916,7 @@ function openScreen(id) {
 
 </body>
 </html>
+
 
 
 
