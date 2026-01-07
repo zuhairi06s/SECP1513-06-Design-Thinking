@@ -225,7 +225,15 @@
   <div class="menu screen" id="gps">
     <h2>GPS</h2>
     <p>View GPS location</p>
-    <button class="back-btn" onclick="goBack()">Back</button>
+     <h2>📍 Nearby Barbers</h2>
+  <p>Get your current location</p>
+
+  <button class="btn-main" onclick="getLocation()">Get My Location</button>
+
+  <div id="gps-result" style="margin-top:15px; font-size:14px;"></div>
+
+  <button class="back-btn" onclick="goBack()">Back</button>
+</div>
   </div>
 
   <!-- SUBSCRIPTION SCREEN -->
@@ -267,5 +275,47 @@
   }
 </script>
 
+  <script>
+  function openScreen(id) {
+    document.querySelectorAll('.screen').forEach(screen => {
+      screen.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+  }
+
+  function goBack() {
+    openScreen('home');
+  }
+
+  // GPS FUNCTION
+  function getLocation() {
+    const result = document.getElementById("gps-result");
+
+    if (!navigator.geolocation) {
+      result.innerHTML = "Geolocation is not supported by this browser.";
+      return;
+    }
+
+    result.innerHTML = "Getting your location...";
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude.toFixed(5);
+        const lon = position.coords.longitude.toFixed(5);
+
+        result.innerHTML = `
+          <strong>Your Location:</strong><br>
+          Latitude: ${lat}<br>
+          Longitude: ${lon}
+        `;
+      },
+      () => {
+        result.innerHTML = "Unable to retrieve location.";
+      }
+    );
+  }
+</script>
+
 </body>
 </html>
+
