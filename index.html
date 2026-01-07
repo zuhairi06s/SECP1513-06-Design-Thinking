@@ -61,6 +61,19 @@
       display: none;
 }
 }
+    .menu-content {
+      height: 100%;
+      overflow-y: auto;
+      padding-bottom: 80px; /* space for back button */
+    }
+    
+    /* Hide scrollbar */
+    .menu-content::-webkit-scrollbar {
+      display: none;
+    }
+    .menu-content {
+      scrollbar-width: none;
+    }
 
 
     .barbers-title {
@@ -256,6 +269,7 @@
   
 <!-- BOOKING SCREEN -->
 <div class="menu screen" id="booking">
+  <div class="menu-content">
   <h2 style="margin-top:0; text-align:center;">📅 Book Appointment</h2>
   <!-- Barbershop selector -->
   <label for="barbershop-select" style="display:block; margin-bottom:10px; font-weight:bold;">Select Barbershop:</label>
@@ -282,6 +296,7 @@
 
   <!-- SHIFTS SCREEN -->
   <div class="menu screen" id="shifts">
+  <div class="menu-content">
      <h2 style="margin-top:0; text-align:center;">Shifts</h2>
     <p>View barber availability</p>
   <!-- Container for shifts -->
@@ -293,6 +308,7 @@
   
 <!-- PORTFOLIO SCREEN -->
   <div class="menu screen" id="portfolio">
+  <div class="menu-content">
     <h2 style="margin-top:0; text-align:center;">Portfolio</h2>
     <div id="portfolio-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
     <button class="back-btn" onclick="goBack()">Back</button>
@@ -301,6 +317,7 @@
  
   <!-- SHOP SCREEN -->
 <div class="menu screen" id="shop">
+  <div class="menu-content">
   <h2 style="margin-top:0; text-align:center;">Shop</h2>
   <div id="shop-container" style="margin-top:15px; max-height:500px;overflow-y:auto; "></div>
   <button class="back-btn" onclick="goBack()">Back</button>
@@ -309,6 +326,7 @@
  
   <!-- HAIRCUT AI SCREEN -->
 <div class="menu screen" id="haircutai">
+  <div class="menu-content">
   <h2 style="margin-top:0; text-align:center;">Haircut AI</h2>
   <!-- Barbershop selector -->
   <label for="haircut-barbershop" style="display:block; margin-bottom:10px; font-weight:bold;">Select Barbershop:</label>
@@ -333,6 +351,7 @@
  
   <!-- REWARDS SCREEN -->
   <div class="menu screen" id="rewards">
+  <div class="menu-content">
     <h2 style="margin-top:0; text-align:center;">Rewards</h2>
     <p>Exchange your points for rewards</p>
     <div id="rewards-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
@@ -341,7 +360,8 @@
 
  
   <!-- GPS SCREEN -->
-  <div class="menu screen" id="gps">
+  <<div class="menu screen" id="gps">
+  <div class="menu-content">
   <h2 style="margin-top:0; text-align:center;">📍 GPS</h2>
   <p>Find barbers near your location</p>
   <button class="btn-main" onclick="getLocation()">Get My Location</button>
@@ -359,6 +379,7 @@
  
   <!-- SUBSCRIPTION SCREEN -->
 <div class="menu screen" id="subscription">
+  <div class="menu-content">
   <h2 style="margin-top:0; text-align:center;"> 💳  Subscription Plans</h2>
   <div id="subscription-container" style="margin-top:15px; max-height:500px; overflow-y:auto;"></div>
   <button class="back-btn" onclick="goBack()">Back</button>
@@ -366,6 +387,7 @@
 
   <!-- GALLERY SCREEN -->
   <div class="menu screen" id="gallery">
+  <div class="menu-content">
     <h2 style="margin-top:0; text-align:center;"> 🖼 Gallery</h2>
     <p>Photo of different haircut styles</p>
     <button class="back-btn" onclick="goBack()">Back</button>
@@ -912,6 +934,7 @@ function openScreen(id) {
 
 </body>
 </html>
+
 
 
 
