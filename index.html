@@ -162,6 +162,44 @@
         height: 50px;
         border-radius: 10px;
 }
+      .calendar {
+        display: block;
+        margin: 30px auto;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+}
+
+      .time-popup {
+       display: none;
+       background: white;
+       padding: 16px;
+       border-radius: 16px;
+       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+       margin-top: 20px;
+       text-align: center;
+}
+
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 15px 0;
+}
+
+    .time-slots button {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background: #f2f2f2;
+      cursor: pointer;
+}
+
+    .time-slots button.active {
+      background: #ff512f;
+      color: white;
+}
   </style>
 </head>
 
@@ -196,12 +234,32 @@
     </div>
   </div>
 
+  
   <!-- BOOKING SCREEN -->
-  <div class="menu screen" id="booking">
-    <h2>Booking</h2>
-    <p>Select barber, date & time</p>
+<div class="menu screen" id="booking">
+  <h2>📅 Book Appointment</h2>
+  <p>Select a date</p>
+
+  <!-- Calendar -->
+  <input type="date" id="booking-date" class="calendar" onchange="showTimePopup()" />
+
+  <!-- Time Popup -->
+  <div id="time-popup" class="time-popup">
+    <h3>Select Time</h3>
+
+    <div class="time-slots">
+      <button onclick="selectTime('10:00 AM')">10:00 AM</button>
+      <button onclick="selectTime('12:00 PM')">12:00 PM</button>
+      <button onclick="selectTime('2:00 PM')">2:00 PM</button>
+      <button onclick="selectTime('4:00 PM')">4:00 PM</button>
+    </div>
+
+    <button class="btn-main" onclick="confirmBooking()">Book Now</button>
+  </div>
+
     <button class="back-btn" onclick="goBack()">Back</button>
   </div>
+
 
   <!-- SHIFTS SCREEN -->
   <div class="menu screen" id="shifts">
@@ -367,6 +425,7 @@
 
 </body>
 </html>
+
 
 
 
