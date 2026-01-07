@@ -223,17 +223,22 @@
 
   <!-- GPS SCREEN -->
   <div class="menu screen" id="gps">
-    <h2>GPS</h2>
-    <p>View GPS location</p>
-     <h2>📍 Nearby Barbers</h2>
-  <p>Get your current location</p>
+  <h2>GPS</h2>
+  <div class="menu screen" id="gps">
+  <h2>📍 Nearby Barbers</h2>
+  <p>Find barbers near your location</p>
 
   <button class="btn-main" onclick="getLocation()">Get My Location</button>
 
-  <div id="gps-result" style="margin-top:15px; font-size:14px;"></div>
+  <div id="gps-result" style="margin-top:15px;"></div>
+
+  <!-- MAP IMAGE -->
+  <img id="map-image" style="display:none; width:100%; border-radius:12px; margin-top:12px;" />
+
+  <!-- MOCK BARBERS -->
+  <div id="barber-list" style="margin-top:15px;"></div>
 
   <button class="back-btn" onclick="goBack()">Back</button>
-</div>
   </div>
 
   <!-- SUBSCRIPTION SCREEN -->
@@ -275,21 +280,11 @@
   }
 </script>
 
-  <script>
-  function openScreen(id) {
-    document.querySelectorAll('.screen').forEach(screen => {
-      screen.classList.remove('active');
-    });
-    document.getElementById(id).classList.add('active');
-  }
-
-  function goBack() {
-    openScreen('home');
-  }
-
-  // GPS FUNCTION
+<script>
   function getLocation() {
     const result = document.getElementById("gps-result");
+    const mapImg = document.getElementById("map-image");
+    const barberList = document.getElementById("barber-list");
 
     if (!navigator.geolocation) {
       result.innerHTML = "Geolocation is not supported by this browser.";
@@ -297,16 +292,52 @@
     }
 
     result.innerHTML = "Getting your location...";
+    barberList.innerHTML = "";
+    mapImg.style.display = "none";
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude.toFixed(5);
         const lon = position.coords.longitude.toFixed(5);
 
+        // Show GPS result
         result.innerHTML = `
-          <strong>Your Location:</strong><br>
+          <strong>Your Location</strong><br>
           Latitude: ${lat}<br>
           Longitude: ${lon}
+        `;
+
+        // Static map image (OpenStreetMap)
+        mapImg.src = `https://staticmap.openstreetmap.de/staticmap.php?center=${lat},${lon}&zoom=15&size=600x300&markers=${lat},${lon},red-pushpin`;
+        mapImg.style.display = "block";
+
+        // Mock nearby barbers
+        barberList.innerHTML = `
+          <h3 style="margin-bottom:8px;">Nearby Barbers</h3>
+
+          <div class="barber-card">
+            <img src="https://via.placeholder.com/50" />
+            <div>
+              <strong>Fade Studio</strong><br>
+              0.5 km away
+            </div>
+          </div>
+
+          <div class="barber-card">
+            <img src="https://via.placeholder.com/50" />
+            <div>
+              <strong>UTM Barber Shop</strong><br>
+              0.8 km away
+            </div>
+          </div>
+
+          <div class="barber-card">
+            <img src="https://via.placeholder.com/50" />
+            <div>
+              <strong>Classic Cut</strong><br>
+              1.2 km away
+            </div>
+          </div>
         `;
       },
       () => {
@@ -316,6 +347,8 @@
   }
 </script>
 
+
 </body>
 </html>
+
 
